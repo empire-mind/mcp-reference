@@ -1,0 +1,52 @@
+{
+  "title": "Langfuse MCP Servers",
+  "description": "Connect MCP clients to Langfuse Cloud for project-scoped prompt management and to Langfuse Docs for public documentation search and retrieval.",
+  "servers": [
+    {
+      "id": "langfuse-cloud",
+      "name": "Langfuse Cloud MCP",
+      "description": "Authenticated project-scoped MCP server for Langfuse Cloud projects.",
+      "url": "https://cloud.langfuse.com/api/public/mcp",
+      "auth": {
+        "type": "basic",
+        "publicKeyEnv": "LANGFUSE_PUBLIC_KEY",
+        "secretKeyEnv": "LANGFUSE_SECRET_KEY"
+      },
+      "variants": [
+        {
+          "label": "Cloud EU",
+          "url": "https://cloud.langfuse.com/api/public/mcp"
+        },
+        {
+          "label": "Cloud US",
+          "url": "https://us.cloud.langfuse.com/api/public/mcp"
+        },
+        {
+          "label": "Cloud Japan",
+          "url": "https://jp.cloud.langfuse.com/api/public/mcp"
+        },
+        {
+          "label": "HIPAA US",
+          "url": "https://hipaa.cloud.langfuse.com/api/public/mcp"
+        },
+        {
+          "label": "Self-Hosted",
+          "url": "https://your-domain.com/api/public/mcp"
+        },
+        {
+          "label": "Local Development",
+          "url": "http://localhost:3000/api/public/mcp"
+        }
+      ]
+    },
+    {
+      "id": "langfuse-docs",
+      "name": "Langfuse Docs MCP",
+      "description": "Unauthenticated MCP server for Langfuse documentation search and retrieval.",
+      "url": "https://langfuse.com/api/mcp",
+      "auth": {
+        "type": "none"
+      }
+    }
+  ]
+}
