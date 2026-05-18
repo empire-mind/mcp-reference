@@ -1,12 +1,17 @@
 import type { Metadata } from "next";
+import { cache } from "react";
 
 import { ReferencePage } from "@/components/reference-page";
-import { readGeneratedMarkdown, readGeneratedSnapshot } from "@/lib/snapshot";
+import { buildReferenceArtifacts } from "@/lib/reference-builder";
 
 export const dynamic = "force-static";
+export const revalidate = 3600;
+export const runtime = "nodejs";
+
+const getReferenceArtifacts = cache(buildReferenceArtifacts);
 
 export async function generateMetadata(): Promise<Metadata> {
-  const snapshot = await readGeneratedSnapshot();
+  const { snapshot } = await getReferenceArtifacts();
   return {
     title: snapshot.title,
     description: snapshot.description,
@@ -14,10 +19,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function Home() {
-  const [snapshot, markdown] = await Promise.all([
-    readGeneratedSnapshot(),
-    readGeneratedMarkdown(),
-  ]);
+  const { snapshot, markdown } = await getReferenceArtifacts();
 
   return <ReferencePage markdown={markdown} snapshot={snapshot} />;
 }

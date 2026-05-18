@@ -4,7 +4,7 @@ import { ConfigError, validateReferenceConfig } from "@/lib/config";
 
 const validConfig = {
   title: "Langfuse MCP Servers",
-  description: "Langfuse MCP reference generated at build time.",
+  description: "Langfuse MCP reference generated at runtime.",
   servers: [
     {
       id: "langfuse-cloud",
@@ -33,7 +33,7 @@ describe("validateReferenceConfig", () => {
     });
 
     expect(config.title).toBe("Langfuse MCP Servers");
-    expect(config.description).toBe("Langfuse MCP reference generated at build time.");
+    expect(config.description).toBe("Langfuse MCP reference generated at runtime.");
     expect(config.servers).toHaveLength(2);
     expect(config.servers[0].variants).toEqual([]);
   });

@@ -8,7 +8,7 @@ export function generateMarkdown(reference: GeneratedReference): string {
     "",
     reference.description,
     "",
-    "This is a generated build-time snapshot. It documents configured MCP servers, connection variants, setup snippets, and discovered tools without calling MCP servers at runtime.",
+    "This is an hourly regenerated snapshot. It documents configured MCP servers, connection variants, setup snippets, and discovered tools while serving cached output between regenerations.",
     "",
     "## Servers",
     "",

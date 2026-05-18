@@ -5,9 +5,7 @@
   "packageManager": "pnpm@8.15.6",
   "scripts": {
     "dev": "next dev",
-    "generate": "tsx scripts/generate-mcp-reference.ts",
-    "generate:docs": "tsx scripts/generate-mcp-reference.ts --server langfuse-docs",
-    "build": "pnpm generate && next build",
+    "build": "next build",
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "test": "vitest run",

@@ -2,6 +2,5 @@
 .env*.local
 .next/
 node_modules/
-public/generated/
 coverage/
 tsconfig.tsbuildinfo
