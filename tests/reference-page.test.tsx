@@ -14,7 +14,9 @@ describe("ReferencePage", () => {
         name: "Generated Test MCP Reference",
       }),
     ).toBeTruthy();
-    expect(screen.getAllByText("Langfuse Docs MCP").length).toBeGreaterThan(0);
+    expect(screen.getAllByText("Langfuse Cloud MCP").length).toBeGreaterThan(0);
+    expect(screen.getByText(/API stability:/)).toBeTruthy();
+    expect(screen.getByText(/Clients should dynamically inspect available tools and schemas/)).toBeTruthy();
     expect(screen.getByText("Cursor mcp.json")).toBeTruthy();
     expect(screen.getAllByText("search").length).toBeGreaterThan(0);
     expect(
@@ -41,11 +43,15 @@ const reference: GeneratedReference = {
   },
   servers: [
     {
-      id: "langfuse-docs",
-      name: "Langfuse Docs MCP",
-      description: "Docs server",
-      canonicalUrl: "https://langfuse.com/api/mcp",
-      auth: { type: "none" },
+      id: "langfuse-cloud",
+      name: "Langfuse Cloud MCP",
+      description: "Cloud server",
+      canonicalUrl: "https://cloud.langfuse.com/api/public/mcp",
+      auth: {
+        type: "basic",
+        publicKeyEnv: "LANGFUSE_PUBLIC_KEY",
+        secretKeyEnv: "LANGFUSE_SECRET_KEY",
+      },
       variants: [],
       discovery: { discoveredAt: "2026-05-15T12:00:00.000Z" },
       resources: [],

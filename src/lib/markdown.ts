@@ -1,5 +1,12 @@
 import type { GeneratedReference, GeneratedServer, SetupSnippet, ToolReference } from "./types";
 
+const API_STABILITY_CALLOUT_SERVER_ID = "langfuse-cloud";
+const API_STABILITY_CALLOUT = [
+  "> ⚠️ **API stability**:",
+  "> This MCP server is self-describing. Clients should dynamically inspect available tools and schemas rather than assuming a static interface.",
+  "> Tool availability and schemas may evolve over time, including the addition, removal, or modification of tools and fields. Clients are expected to tolerate schema changes and refresh capabilities dynamically.",
+];
+
 export function generateMarkdown(reference: GeneratedReference): string {
   const lines: string[] = [
     `# ${reference.title}`,
@@ -29,6 +36,13 @@ function serverSection(server: GeneratedServer): string[] {
   const lines = [
     `### ${server.name}`,
     "",
+  ];
+
+  if (server.id === API_STABILITY_CALLOUT_SERVER_ID) {
+    lines.push(...API_STABILITY_CALLOUT, "");
+  }
+
+  lines.push(
     server.description ?? "",
     "",
     `- Server ID: \`${server.id}\``,
@@ -36,7 +50,7 @@ function serverSection(server: GeneratedServer): string[] {
     `- Authentication: ${auth}`,
     `- Discovered tools: ${server.tools.length}`,
     "",
-  ];
+  );
 
   if (server.variants.length > 0) {
     lines.push("#### Connection Variants", "", "| Variant | URL |", "| --- | --- |");

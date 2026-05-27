@@ -4,6 +4,7 @@ import {
   Code2,
   FileJson,
   TerminalSquare,
+  BookAlert,
 } from "lucide-react";
 
 import { AnchorScroll } from "@/components/anchor-scroll";
@@ -12,6 +13,8 @@ import { SetupTabs } from "@/components/setup-tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Card } from "@/components/ui/card";
 import type { GeneratedReference, GeneratedServer, ToolReference } from "@/lib/types";
+
+const API_STABILITY_CALLOUT_SERVER_ID = "langfuse-cloud";
 
 interface ReferencePageProps {
   snapshot: GeneratedReference;
@@ -193,6 +196,12 @@ function ServerSection({
         </code>
       </div>
 
+      {server.id === API_STABILITY_CALLOUT_SERVER_ID ? (
+        <div className="my-4" id={`${server.id}-api-stability`}>
+          <ApiStabilityCallout />
+        </div>
+      ) : null}
+
       {server.variants.length > 0 ? (
         <div className="mb-8 grid border border-zinc-200 bg-[#fbfbf8] dark:border-zinc-800 dark:bg-zinc-950 sm:grid-cols-2">
           {server.variants.map((variant) => (
@@ -226,6 +235,26 @@ function ServerSection({
         </div>
       </div>
     </section>
+  );
+}
+
+function ApiStabilityCallout() {
+  return (
+    <div className="border border-yellow-300 bg-yellow-50 px-4 py-3 text-sm leading-6 text-yellow-950 dark:border-yellow-700 dark:bg-yellow-950 dark:text-yellow-50 w-full">
+      <p className="mb-3 flex items-center gap-2 text-lg font-semibold">
+        <BookAlert className="size-4" />
+        API stability
+      </p>
+      <p className="mt-2">
+        This MCP server is self-describing. Clients should dynamically inspect available tools and
+        schemas rather than assuming a static interface.
+      </p>
+      <p className="mt-2">
+        Tool availability and schemas may evolve over time, including the addition, removal, or
+        modification of tools and fields. Clients are expected to tolerate schema changes and refresh
+        capabilities dynamically.
+      </p>
+    </div>
   );
 }
 
