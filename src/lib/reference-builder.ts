@@ -6,6 +6,20 @@ import { generateMarkdown } from "./markdown";
 import { buildSetupSnippets } from "./setup-snippets";
 import type { GeneratedReference, GeneratedServer, ServerConfig } from "./types";
 
+const V4_ONLY_TOOL_NAMES = new Set([
+  "getMetricsSchema",
+  "getMonitor",
+  "getObservation",
+  "getObservationFieldSchema",
+  "getObservationFilterSchema",
+  "getObservationFilterValues",
+  "listExperimentItems",
+  "listExperiments",
+  "listMonitors",
+  "listObservations",
+  "queryMetrics",
+]);
+
 type Env = Record<string, string | undefined>;
 type DiscoveryOptions = Parameters<typeof discoverMcpServer>[1];
 type DiscoveryResult = Awaited<ReturnType<typeof discoverMcpServer>>;
@@ -62,6 +76,12 @@ export async function buildReferenceSnapshot(
       variants: server.variants,
       setupSnippets: buildSetupSnippets(server),
       ...discovered,
+      tools: discovered.tools.map((tool) => ({
+        ...tool,
+        ...(server.id === "langfuse-cloud" && V4_ONLY_TOOL_NAMES.has(tool.name)
+          ? { requiresV4: true }
+          : {}),
+      })),
     });
   }
 

@@ -108,6 +108,7 @@ function toolSection(tool: ToolReference): string[] {
   return [
     `##### \`${tool.name}\``,
     "",
+    ...(tool.requiresV4 ? ["[Requires v4](https://langfuse.com/docs/v4)", ""] : []),
     tool.description ?? "No description advertised.",
     "",
     "Input schema:",

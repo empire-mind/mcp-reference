@@ -65,6 +65,7 @@ export interface SetupSnippet {
 export interface ToolReference {
   name: string;
   description?: string;
+  requiresV4?: boolean;
   inputSchema: JsonSchema;
   exampleRequest: JsonObject;
 }

@@ -39,12 +39,15 @@ describe("buildReferenceArtifacts", () => {
       },
       tools: [
         {
-          name: `${server.id}-tool`,
+          name: server.id === "langfuse-cloud" ? "listObservations" : "search",
           inputSchema: { type: "object" },
           exampleRequest: {
             jsonrpc: "2.0",
             method: "tools/call",
-            params: { name: `${server.id}-tool`, arguments: {} },
+            params: {
+              name: server.id === "langfuse-cloud" ? "listObservations" : "search",
+              arguments: {},
+            },
           },
         },
       ],
@@ -73,6 +76,9 @@ describe("buildReferenceArtifacts", () => {
       "langfuse-cloud",
       "langfuse-docs",
     ]);
+    expect(snapshot.servers[0].tools[0].requiresV4).toBe(true);
+    expect(snapshot.servers[1].tools[0].requiresV4).toBeUndefined();
+    expect(markdown).toContain("[Requires v4](https://langfuse.com/docs/v4)");
     expect(markdown).toContain("This is an hourly regenerated snapshot.");
     expect(JSON.stringify(snapshot)).not.toContain("supersecret");
 
