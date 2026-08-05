@@ -16,6 +16,7 @@ describe("generateMarkdown", () => {
     expect(markdown).toContain("| Cloud EU |");
     expect(markdown).toContain("##### Cursor: Cursor mcp.json");
     expect(markdown).toContain("##### `search`");
+    expect(markdown).toContain("[Requires v4](https://langfuse.com/docs/v4)");
     expect(markdown).toContain('"method": "tools/call"');
   });
 });
@@ -58,6 +59,7 @@ const reference: GeneratedReference = {
       tools: [
         {
           name: "search",
+          requiresV4: true,
           description: "Search docs",
           inputSchema: { type: "object", properties: { query: { type: "string" } } },
           exampleRequest: {

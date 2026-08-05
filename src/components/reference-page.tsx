@@ -12,6 +12,7 @@ import { MarkdownActions } from "@/components/markdown-actions";
 import { SetupTabs } from "@/components/setup-tabs";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { Card } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import type { GeneratedReference, GeneratedServer, ToolReference } from "@/lib/types";
 
 const API_STABILITY_CALLOUT_SERVER_ID = "langfuse-cloud";
@@ -262,7 +263,16 @@ function ToolCard({ serverId, tool }: { serverId: string; tool: ToolReference })
   return (
     <Card className="scroll-mt-28 overflow-hidden" id={`${serverId}-${tool.name}`}>
       <div className="px-4 py-4 sm:px-5">
-        <h4 className="font-mono text-base font-semibold">{tool.name}</h4>
+        <div className="flex flex-wrap items-center gap-2">
+          <h4 className="font-mono text-base font-semibold">{tool.name}</h4>
+          {tool.requiresV4 ? (
+            <a href="https://langfuse.com/docs/v4">
+              <Badge className="border-amber-300 bg-amber-50 text-amber-900 hover:bg-amber-100 dark:border-amber-700 dark:bg-amber-950 dark:text-amber-100 dark:hover:bg-amber-900">
+                Requires v4
+              </Badge>
+            </a>
+          ) : null}
+        </div>
         {tool.description ? (
           <p className="mt-2 text-sm leading-6 text-zinc-700 dark:text-zinc-300">{tool.description}</p>
         ) : null}

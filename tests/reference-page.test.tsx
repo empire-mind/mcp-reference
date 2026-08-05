@@ -15,10 +15,13 @@ describe("ReferencePage", () => {
       }),
     ).toBeTruthy();
     expect(screen.getAllByText("Langfuse Cloud MCP").length).toBeGreaterThan(0);
-    expect(screen.getByText(/API stability:/)).toBeTruthy();
+    expect(screen.getByText("API stability")).toBeTruthy();
     expect(screen.getByText(/Clients should dynamically inspect available tools and schemas/)).toBeTruthy();
     expect(screen.getByText("Cursor mcp.json")).toBeTruthy();
     expect(screen.getAllByText("search").length).toBeGreaterThan(0);
+    expect(screen.getByRole("link", { name: "Requires v4" }).getAttribute("href")).toBe(
+      "https://langfuse.com/docs/v4",
+    );
     expect(
       screen
         .getAllByRole("link", { name: /JSON/i })
@@ -68,6 +71,7 @@ const reference: GeneratedReference = {
       tools: [
         {
           name: "search",
+          requiresV4: true,
           description: "Search docs",
           inputSchema: {
             type: "object",
